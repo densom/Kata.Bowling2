@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Kata.Bolwing2.Tests
 {
-    public class Class1
+
+    public class BowlingGameTests
     {
+
     }
 }
