@@ -34,11 +34,25 @@ namespace Kata.Bowling2.Tests
         [Test]
         [TestCase(new[] {1}, null)]
         [TestCase(new[] {1,1}, 2)]
-//        [TestCase(new[] {1,1}, 2)]
-        public void Score_CalculatesAtEndOfFrame_OpenFrame(int[] rolls, int? expectedScore)
+        public void Score_CalculatesOnlyWhenFrameIsComplete(int[] rolls, int? expectedScore)
         {
             _rollHelper.RollAll(rolls);
             Assert.That(_game.Score(), Is.EqualTo(expectedScore));
+        }
+
+        [Test]
+        public void Score_Strike_GetsTwoBonusBalls()
+        {
+            _rollHelper.RollAll(new[] { 10, 1, 2 });
+            Assert.That(_game.Score(), Is.EqualTo(16));
+        }
+
+        [Test]
+        [Ignore("Pending implementation on Frame object")]
+        public void Score_TwoStrikesInARowFollowedByAnOpenFrame_GetsTwoBonusBalls()
+        {
+            _rollHelper.RollAll(new[] {10, 10, 1, 2});
+            Assert.That(_game.Score(), Is.EqualTo(10+10+1+2+10+1));
         }
 
     }

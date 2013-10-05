@@ -25,7 +25,7 @@ namespace Kata.Bowling2
         public int FrameNumber { get; private set; }
         public bool IsComplete
         {
-            get 
+            get
             {
                 if (_throws.Count == 2 || IsStrike())
                 {
@@ -35,6 +35,8 @@ namespace Kata.Bowling2
                 return false;
             }
         }
+
+        public IFrame PreviousFrame { get { return _previousFrame; } }
 
         public void RecordThrow(int pins)
         {
@@ -48,6 +50,11 @@ namespace Kata.Bowling2
             if (_previousFrame.IsStrike())
             {
                 _previousFrame.AddBonusBall(pins);
+
+                if (_previousFrame.PreviousFrame.IsStrike())
+                {
+                    _previousFrame.PreviousFrame.AddBonusBall(pins);
+                }
             }
 
         }
@@ -56,6 +63,7 @@ namespace Kata.Bowling2
         public virtual void AddBonusBall(int pins)
         {
             _bonusBalls.Add(pins);
+
         }
 
         public virtual int? Score()

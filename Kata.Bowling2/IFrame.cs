@@ -8,6 +8,7 @@
         void AddBonusBall(int pins);
         int FrameNumber { get; }
         bool IsComplete { get; }
+        IFrame PreviousFrame { get; }
         void RecordThrow(int pins);
     }
 }

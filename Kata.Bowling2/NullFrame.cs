@@ -32,6 +32,8 @@
             get { return true; }
         }
 
+        public IFrame PreviousFrame { get { return null; } }
+
         public void RecordThrow(int pins)
         {
             

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Kata.Bowling2.Tests
 {
@@ -43,7 +44,7 @@ namespace Kata.Bowling2.Tests
         }
 
         [Test]
-        public void Score_StrikeRecordsTwoBonusThrows()
+        public void Score_StrikeFollowedByTwoNormalThrows_StrikeRecordsTwoBonusThrows()
         {
             var frame1 = new Frame();
             frame1.RecordThrow(10); //strike
@@ -56,6 +57,22 @@ namespace Kata.Bowling2.Tests
             Assert.That(frame2.Score(), Is.EqualTo(14));
 
         }
+
+        [Test]
+        [Ignore]
+        public void Score_TwoStrikesInARow_StrikeRecordsTwoBonusThrows()
+        {
+            throw new NotImplementedException();
+        }
+
+       /* [Test]
+        public void PendingBonusThrows_OpenFrame_EqualsZero()
+        {
+            var frame1 = new Frame();
+            frame1.RecordThrow(10);
+
+            Assert.That(frame1.PendingBonusThrows, Is.EqualTo(2));
+        }*/
 
 
         [Test]
