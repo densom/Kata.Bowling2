@@ -1,77 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Kata.Bowling2
 {
     public class BowlingGame
     {
-        private int _score;
-        private bool _isFirstBall;
-        private Queue<int> _bonusSpareBalls = new Queue<int>();
+        private readonly List<IFrame> _frames = new List<IFrame>();
 
         public BowlingGame()
         {
-            _isFirstBall = true;
+            _frames.Add(new NullFrame());
         }
-
-        internal int CurrentFrameScore { get; private set; }
 
         public void Roll(int pinsKnockedDown)
         {
-            _isFirstBall = !_isFirstBall;
-
-            CalculateCurrentFrameScore(pinsKnockedDown);
-
-            ScorePendingBonusBalls();
-
-            if (IsSpare(pinsKnockedDown))
-            {
-                _bonusSpareBalls.Enqueue(pinsKnockedDown);
-            }
-
-            _score += pinsKnockedDown;
-
+            AddNewFrameIfLastFrameComplete();
+            _frames.Last().RecordThrow(pinsKnockedDown);
         }
 
-        private void ScorePendingBonusBalls()
+        private void AddNewFrameIfLastFrameComplete()
         {
-            if (_bonusSpareBalls.Count > 0)
+            if (_frames.Last().IsComplete)
             {
-                _score += _bonusSpareBalls.Dequeue();
+                _frames.Add(new Frame(_frames.Last()));
             }
-            
-        }
-
-        private void CalculateCurrentFrameScore(int pinsKnockedDown)
-        {
-            if (_isFirstBall)
-            {
-                CurrentFrameScore = 0;
-            }
-            else
-            {
-                CurrentFrameScore += pinsKnockedDown;
-            }
-        }
-
-        private bool IsSpare(int pinsKnockedDown)
-        {
-            return (CurrentFrameScore + pinsKnockedDown) == 10;
         }
 
         public int? Score()
         {
-            if (!_isFirstBall)
-            {
-                return null;
-            }
-            return _score;
+            return _frames.Last().Score();
         }
 
-        internal bool IsFirstBall()
-        {
-            return _isFirstBall;
-        }
 
     }
 }

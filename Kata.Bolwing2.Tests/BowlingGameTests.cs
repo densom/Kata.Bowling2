@@ -32,25 +32,6 @@ namespace Kata.Bowling2.Tests
         }
 
         [Test]
-        [TestCase(new[] {1}, 1)]
-        [TestCase(new[] {1,1}, 0)]
-        [TestCase(new[] {1,1,1}, 1)]
-        public void CurrentFrameScore_KeepsTrackOfCurrentFrame(int[] rolls, int expectedCurrentFrameScore)
-        {
-            _rollHelper.RollAll(rolls);
-            Assert.That(_game.CurrentFrameScore, Is.EqualTo(expectedCurrentFrameScore));
-        }
-
-        [Test]
-        [TestCase(new[] {1}, false)]
-        [TestCase(new[] {1,1}, true)]
-        public void IsFirstBall_OpenFrame_ReturnsTrueOnFirstThrowInNewFrame(int[] rolls, bool isFirstBallExpected)
-        {
-            _rollHelper.RollAll(rolls);
-            Assert.That(_game.IsFirstBall(), Is.EqualTo(isFirstBallExpected));
-        }
-
-        [Test]
         [TestCase(new[] {1}, null)]
         [TestCase(new[] {1,1}, 2)]
 //        [TestCase(new[] {1,1}, 2)]
