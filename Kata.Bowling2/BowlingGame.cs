@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Kata.Bowling2
@@ -21,7 +20,7 @@ namespace Kata.Bowling2
 
         private void AddNewFrameIfLastFrameComplete()
         {
-            var previousFrame = _frames.Last();
+            FrameBase previousFrame = _frames.Last();
 
             if (previousFrame.IsComplete)
             {
@@ -39,7 +38,5 @@ namespace Kata.Bowling2
         {
             return _frames.Last().Score();
         }
-
-
     }
 }

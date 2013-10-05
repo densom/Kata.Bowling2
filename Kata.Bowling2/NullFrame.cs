@@ -2,6 +2,11 @@
 {
     public class NullFrame : FrameBase
     {
+        public override bool IsComplete
+        {
+            get { return true; }
+        }
+
         public override int? Score()
         {
             return 0;
@@ -22,15 +27,9 @@
             return;
         }
 
-        public override bool IsComplete
-        {
-            get { return true; }
-        }
-
 
         public override void RecordThrow(int pins)
         {
-            
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Kata.Bowling2
     {
         public TenthFrame(FrameBase previousFrame) : base(previousFrame)
         {
-            
         }
 
         public override bool IsComplete
@@ -31,15 +30,12 @@ namespace Kata.Bowling2
         {
             if (Throws.Count <= 1)
             {
-                base.RecordThrow(pins);   
+                base.RecordThrow(pins);
             }
             else
             {
                 Throws.Add(pins);
             }
-            
-
-
         }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Kata.Bowling2
 {
     public class Frame : FrameBase
     {
-
-
         public Frame()
         {
             PreviousFrame = new NullFrame();
@@ -32,7 +28,7 @@ namespace Kata.Bowling2
                 return false;
             }
         }
-        
+
         public override void RecordThrow(int pins)
         {
             Throws.Add(pins);
@@ -65,7 +61,6 @@ namespace Kata.Bowling2
         internal override void AddBonusBall(int pins)
         {
             BonusBalls.Add(pins);
-
         }
 
         public override int? Score()

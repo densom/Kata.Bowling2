@@ -5,6 +5,16 @@ namespace Kata.Bowling2.Tests
     [TestFixture]
     public class TenthFrameTests
     {
+        [Test]
+        public void TenthFrame_OpenFrame()
+        {
+            var tenthFrame = new TenthFrame(new NullFrame());
+
+            tenthFrame.RecordThrow(1);
+            tenthFrame.RecordThrow(1);
+
+            Assert.That(tenthFrame.Score(), Is.EqualTo(2));
+        }
 
         [Test]
         public void TenthFrame_SpareAndBonusBall()
@@ -27,17 +37,6 @@ namespace Kata.Bowling2.Tests
             tenthFrame.RecordThrow(10);
 
             Assert.That(tenthFrame.Score(), Is.EqualTo(30));
-        }
-
-        [Test]
-        public void TenthFrame_OpenFrame()
-        {
-            var tenthFrame = new TenthFrame(new NullFrame());
-
-            tenthFrame.RecordThrow(1);
-            tenthFrame.RecordThrow(1);
-
-            Assert.That(tenthFrame.Score(), Is.EqualTo(2));
         }
     }
 }

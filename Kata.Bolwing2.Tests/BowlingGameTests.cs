@@ -5,9 +5,6 @@ namespace Kata.Bowling2.Tests
     [TestFixture]
     public class BowlingGameTests
     {
-        private BowlingGame _game;
-        private RollHelper _rollHelper;
-
         [SetUp]
         public virtual void SetUp()
         {
@@ -15,25 +12,12 @@ namespace Kata.Bowling2.Tests
             _rollHelper = new RollHelper(_game);
         }
 
-        [Test]
-        [TestCase(new[] {1}, null)]
-        [TestCase(new[] {1,1}, 2)]
-        public void Score_OpenFrame_ScoresPinsKnockedDown(int[] rolls, int? expectedScore)
-        {
-            _rollHelper.RollAll(rolls);
-            Assert.That(_game.Score(), Is.EqualTo(expectedScore));
-        }
-
-        [Test]
-        public void Score_Spare_GetsOneBonusBall()
-        {
-            _rollHelper.RollAll(new[] {9,1,2,0});
-            Assert.That(_game.Score(), Is.EqualTo(14));
-        }
+        private BowlingGame _game;
+        private RollHelper _rollHelper;
 
         [Test]
         [TestCase(new[] {1}, null)]
-        [TestCase(new[] {1,1}, 2)]
+        [TestCase(new[] {1, 1}, 2)]
         public void Score_CalculatesOnlyWhenFrameIsComplete(int[] rolls, int? expectedScore)
         {
             _rollHelper.RollAll(rolls);
@@ -41,9 +25,32 @@ namespace Kata.Bowling2.Tests
         }
 
         [Test]
+        [TestCase(new[] {1}, null)]
+        [TestCase(new[] {1, 1}, 2)]
+        public void Score_OpenFrame_ScoresPinsKnockedDown(int[] rolls, int? expectedScore)
+        {
+            _rollHelper.RollAll(rolls);
+            Assert.That(_game.Score(), Is.EqualTo(expectedScore));
+        }
+
+        [Test]
+        public void Score_PerfectGame_Scores300()
+        {
+            _rollHelper.RollAll(new[] {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10});
+            Assert.That(_game.Score(), Is.EqualTo(300));
+        }
+
+        [Test]
+        public void Score_Spare_GetsOneBonusBall()
+        {
+            _rollHelper.RollAll(new[] {9, 1, 2, 0});
+            Assert.That(_game.Score(), Is.EqualTo(14));
+        }
+
+        [Test]
         public void Score_Strike_GetsTwoBonusBalls()
         {
-            _rollHelper.RollAll(new[] { 10, 1, 2 });
+            _rollHelper.RollAll(new[] {10, 1, 2});
             Assert.That(_game.Score(), Is.EqualTo(16));
         }
 
@@ -51,15 +58,7 @@ namespace Kata.Bowling2.Tests
         public void Score_TwoStrikesInARowFollowedByAnOpenFrame_GetsTwoBonusBalls()
         {
             _rollHelper.RollAll(new[] {10, 10, 1, 2});
-            Assert.That(_game.Score(), Is.EqualTo(10+10+1+10+1+2+1+2));
+            Assert.That(_game.Score(), Is.EqualTo(10 + 10 + 1 + 10 + 1 + 2 + 1 + 2));
         }
-
-        [Test]
-        public void Score_PerfectGame_Scores300()
-        {
-            _rollHelper.RollAll(new int[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10});
-            Assert.That(_game.Score(), Is.EqualTo(300));
-        }
-
     }
 }
