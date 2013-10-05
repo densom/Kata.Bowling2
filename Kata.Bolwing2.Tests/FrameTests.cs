@@ -68,7 +68,7 @@ namespace Kata.Bowling2.Tests
        /* [Test]
         public void PendingBonusThrows_OpenFrame_EqualsZero()
         {
-            var frame1 = new Frame();
+            var frame1 = new FrameBase();
             frame1.RecordThrow(10);
 
             Assert.That(frame1.PendingBonusThrows, Is.EqualTo(2));

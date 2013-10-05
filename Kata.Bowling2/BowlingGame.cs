@@ -6,7 +6,7 @@ namespace Kata.Bowling2
 {
     public class BowlingGame
     {
-        private readonly List<IFrame> _frames = new List<IFrame>();
+        private readonly List<FrameBase> _frames = new List<FrameBase>();
 
         public BowlingGame()
         {

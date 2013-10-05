@@ -4,30 +4,27 @@ using System.Linq;
 
 namespace Kata.Bowling2
 {
-    public class Frame : IFrame
+    public class Frame : FrameBase
     {
-        private readonly List<int> _throws = new List<int>();
-        private readonly List<int> _bonusBalls = new List<int>();
-        private readonly IFrame _previousFrame;
+
 
         public Frame()
         {
-            _previousFrame = new NullFrame();
+            PreviousFrame = new NullFrame();
             FrameNumber = 1;
         }
 
-        public Frame(IFrame previousFrame)
+        public Frame(FrameBase previousFrame)
         {
-            _previousFrame = previousFrame;
-            FrameNumber = _previousFrame.FrameNumber + 1;
+            PreviousFrame = previousFrame;
+            FrameNumber = PreviousFrame.FrameNumber + 1;
         }
 
-        public int FrameNumber { get; private set; }
-        public bool IsComplete
+        public override bool IsComplete
         {
             get
             {
-                if (_throws.Count == 2 || IsStrike())
+                if (Throws.Count == 2 || IsStrike())
                 {
                     return true;
                 }
@@ -36,49 +33,46 @@ namespace Kata.Bowling2
             }
         }
 
-        public IFrame PreviousFrame { get { return _previousFrame; } }
-
-        public void RecordThrow(int pins)
+        public override void RecordThrow(int pins)
         {
-            _throws.Add(pins);
+            Throws.Add(pins);
 
-            if (_previousFrame.IsSpare())
+            if (PreviousFrame.IsSpare())
             {
-                _previousFrame.AddBonusBall(pins);
+                PreviousFrame.AddBonusBall(pins);
             }
 
-            if (_previousFrame.IsStrike())
+            if (PreviousFrame.IsStrike())
             {
-                _previousFrame.AddBonusBall(pins);
+                PreviousFrame.AddBonusBall(pins);
 
-                if (_previousFrame.PreviousFrame.IsStrike())
+                if (PreviousFrame.PreviousFrame.IsStrike())
                 {
-                    _previousFrame.PreviousFrame.AddBonusBall(pins);
+                    PreviousFrame.PreviousFrame.AddBonusBall(pins);
                 }
             }
 
         }
 
-        // todo: make it so this is no longer public
-        public virtual void AddBonusBall(int pins)
+        internal override void AddBonusBall(int pins)
         {
-            _bonusBalls.Add(pins);
+            BonusBalls.Add(pins);
 
         }
 
-        public virtual int? Score()
+        public override int? Score()
         {
             if (!IsComplete)
             {
                 return null;
             }
 
-            return _throws.Sum() + _bonusBalls.Sum() + _previousFrame.Score();
+            return Throws.Sum() + BonusBalls.Sum() + PreviousFrame.Score();
         }
 
-        public bool IsStrike()
+        public override bool IsStrike()
         {
-            if (_throws.Count == 1 && _throws.Sum() == 10)
+            if (Throws.Count == 1 && Throws.Sum() == 10)
             {
                 return true;
             }
@@ -86,9 +80,9 @@ namespace Kata.Bowling2
             return false;
         }
 
-        public bool IsSpare()
+        public override bool IsSpare()
         {
-            if (_throws.Count == 2 && _throws.Sum() == 10)
+            if (Throws.Count == 2 && Throws.Sum() == 10)
             {
                 return true;
             }

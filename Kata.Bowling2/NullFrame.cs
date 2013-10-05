@@ -1,40 +1,34 @@
 ﻿namespace Kata.Bowling2
 {
-    public class NullFrame : IFrame
+    public class NullFrame : FrameBase
     {
-        public int? Score()
+        public override int? Score()
         {
             return 0;
         }
 
-        public bool IsStrike()
+        public override bool IsStrike()
         {
             return false;
         }
 
-        public bool IsSpare()
+        public override bool IsSpare()
         {
             return false;
         }
 
-        public void AddBonusBall(int pins)
+        internal override void AddBonusBall(int pins)
         {
             return;
         }
 
-        public int FrameNumber
-        {
-            get { return 0; }
-        }
-
-        public bool IsComplete
+        public override bool IsComplete
         {
             get { return true; }
         }
 
-        public IFrame PreviousFrame { get { return null; } }
 
-        public void RecordThrow(int pins)
+        public override void RecordThrow(int pins)
         {
             
         }
