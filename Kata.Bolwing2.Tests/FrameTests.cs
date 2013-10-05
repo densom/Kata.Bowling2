@@ -14,6 +14,7 @@ namespace Kata.Bowling2.Tests
         public void IsStrike_DetectsStrikes(int pins, bool isStrikeExpected)
         {
             var frame = new Frame();
+
             frame.RecordThrow(pins);
 
             Assert.That(frame.IsStrike(), Is.EqualTo(isStrikeExpected));
@@ -25,6 +26,7 @@ namespace Kata.Bowling2.Tests
         public void IsStrike_DetectsSpares(int throw1, int throw2, bool isSpareExpected)
         {
             var frame = new Frame();
+
             frame.RecordThrow(throw1);
             frame.RecordThrow(throw2);
 
@@ -104,7 +106,9 @@ namespace Kata.Bowling2.Tests
         public void IsComplete_OneNormalThrow_False()
         {
             var frame = new Frame();
+
             frame.RecordThrow(1);
+            
             Assert.That(frame.IsComplete, Is.False);
         }
 
@@ -112,8 +116,10 @@ namespace Kata.Bowling2.Tests
         public void IsComplete_TwoNormalThrows_True()
         {
             var frame = new Frame();
+
             frame.RecordThrow(1);
             frame.RecordThrow(1);
+
             Assert.That(frame.IsComplete, Is.True);
         }
 
@@ -121,8 +127,10 @@ namespace Kata.Bowling2.Tests
         public void IsComplete_Spare_True()
         {
             var frame = new Frame();
+
             frame.RecordThrow(9);
             frame.RecordThrow(1);
+            
             Assert.That(frame.IsComplete, Is.True);
         }
 
@@ -130,7 +138,9 @@ namespace Kata.Bowling2.Tests
         public void IsComplete_Strike_True()
         {
             var frame = new Frame();
+
             frame.RecordThrow(10);
+            
             Assert.That(frame.IsComplete, Is.True);
         }
 
@@ -138,7 +148,9 @@ namespace Kata.Bowling2.Tests
         public void IsComplete_ScoreReturnsNullWhenFalse()
         {
             var frame = new Frame();
+
             frame.RecordThrow(5);
+
             Assert.That(frame.Score(), Is.Null);
         }
 
@@ -176,42 +188,6 @@ namespace Kata.Bowling2.Tests
             Assert.That(frame2.Score(), Is.EqualTo(51));
             Assert.That(frame3.Score(), Is.EqualTo(63));
             Assert.That(frame4.Score(), Is.EqualTo(65));
-        }
-
-        //todo:  10th frame tests
-
-        [Test]
-        public void TenthFrame_SpareAndBonusBall()
-        {
-            var tenthFrame = new TenthFrame(new NullFrame());
-            tenthFrame.RecordThrow(9);
-            tenthFrame.RecordThrow(1);
-            tenthFrame.RecordThrow(1);
-
-            Assert.That(tenthFrame.Score(), Is.EqualTo(11));
-        }
-
-        [Test]
-        public void TenthFrame_Turkey()
-        {
-            var tenthFrame = new TenthFrame(new NullFrame());
-
-            tenthFrame.RecordThrow(10);
-            tenthFrame.RecordThrow(10);
-            tenthFrame.RecordThrow(10);
-
-            Assert.That(tenthFrame.Score(), Is.EqualTo(30));
-        }
-
-        [Test]
-        public void TenthFrame_OpenFrame()
-        {
-            var tenthFrame = new TenthFrame(new NullFrame());
-
-            tenthFrame.RecordThrow(1);
-            tenthFrame.RecordThrow(1);
-
-            Assert.That(tenthFrame.Score(), Is.EqualTo(2));
         }
 
         [Test]

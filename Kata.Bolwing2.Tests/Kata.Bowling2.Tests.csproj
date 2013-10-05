@@ -46,6 +46,7 @@
     <Compile Include="FrameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RollHelper.cs" />
+    <Compile Include="TenthFrameTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Kata.Bowling2\Kata.Bowling2.csproj">
