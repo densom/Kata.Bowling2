@@ -54,5 +54,12 @@ namespace Kata.Bowling2.Tests
             Assert.That(_game.Score(), Is.EqualTo(10+10+1+10+1+2+1+2));
         }
 
+        [Test]
+        public void Score_PerfectGame_Scores300()
+        {
+            _rollHelper.RollAll(new int[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10});
+            Assert.That(_game.Score(), Is.EqualTo(300));
+        }
+
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Kata.Bowling2.Tests
@@ -176,6 +178,42 @@ namespace Kata.Bowling2.Tests
             Assert.That(frame4.Score(), Is.EqualTo(65));
         }
 
+        //todo:  10th frame tests
 
+        [Test]
+        public void Score_PerfectGame_Scores300()
+        {
+            var frames = GetFramesForFullGame();
+
+            for (int i = 0; i < 9; i++)
+            {
+                frames[i].RecordThrow(10);
+            }
+
+            // 10th frame
+            frames[9].RecordThrow(10);
+            frames[9].RecordThrow(10);
+            frames[9].RecordThrow(10);
+            
+            Assert.That(frames.Last().Score(), Is.EqualTo(300));
+        }
+
+        private List<Frame> GetFramesForFullGame()
+        {
+            var frames = new List<Frame>();
+
+            var frame1 = new Frame();
+            frames.Add(frame1);
+
+            for (int i = 0; i < 9; i++)
+            {
+                var previousFrame = frames.Last();
+                var frame = new Frame(previousFrame);
+                frames.Add(frame);
+            }
+
+            return frames;
+
+        }
     }
 }

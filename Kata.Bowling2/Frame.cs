@@ -24,13 +24,28 @@ namespace Kata.Bowling2
         {
             get
             {
-                if (Throws.Count == 2 || IsStrike())
+                if (Throws.Count == 2 || IsStrike() || IsTenthFrameComplete())
                 {
                     return true;
                 }
 
                 return false;
             }
+        }
+
+        private bool IsTenthFrameComplete()
+        {
+            if (FrameNumber == 10 && Throws.Count == 3)
+            {
+                return true;
+            }
+
+            if (FrameNumber == 10)
+            {
+                
+            }
+
+            return false;
         }
 
         public override void RecordThrow(int pins)
@@ -67,6 +82,7 @@ namespace Kata.Bowling2
 
         public override int? Score()
         {
+            //todo: frame 10 is not showing complete after 3 throws
             if (!IsComplete)
             {
                 return null;
@@ -93,6 +109,11 @@ namespace Kata.Bowling2
             }
 
             return false;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Frame {0}: Score {1}", FrameNumber, Score());
         }
     }
 }
