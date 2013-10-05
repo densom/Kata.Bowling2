@@ -21,9 +21,17 @@ namespace Kata.Bowling2
 
         private void AddNewFrameIfLastFrameComplete()
         {
-            if (_frames.Last().IsComplete)
+            var previousFrame = _frames.Last();
+
+            if (previousFrame.IsComplete)
             {
-                _frames.Add(new Frame(_frames.Last()));
+                if (previousFrame.FrameNumber == 9)
+                {
+                    _frames.Add(new TenthFrame(previousFrame));
+                    return;
+                }
+
+                _frames.Add(new Frame(previousFrame));
             }
         }
 

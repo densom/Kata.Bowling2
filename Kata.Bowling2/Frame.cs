@@ -24,7 +24,7 @@ namespace Kata.Bowling2
         {
             get
             {
-                if (Throws.Count == 2 || IsStrike() || IsTenthFrameComplete())
+                if (Throws.Count == 2 || IsStrike())
                 {
                     return true;
                 }
@@ -32,26 +32,15 @@ namespace Kata.Bowling2
                 return false;
             }
         }
-
-        private bool IsTenthFrameComplete()
-        {
-            if (FrameNumber == 10 && Throws.Count == 3)
-            {
-                return true;
-            }
-
-            if (FrameNumber == 10)
-            {
-                
-            }
-
-            return false;
-        }
-
+        
         public override void RecordThrow(int pins)
         {
             Throws.Add(pins);
+            AddBonusPointsToPreviousFrames(pins);
+        }
 
+        private void AddBonusPointsToPreviousFrames(int pins)
+        {
             if (PreviousFrame.IsSpare() && IsFirstThrow())
             {
                 PreviousFrame.AddBonusBall(pins);
@@ -66,7 +55,6 @@ namespace Kata.Bowling2
                     PreviousFrame.PreviousFrame.AddBonusBall(pins);
                 }
             }
-
         }
 
         private bool IsFirstThrow()

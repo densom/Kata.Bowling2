@@ -181,6 +181,40 @@ namespace Kata.Bowling2.Tests
         //todo:  10th frame tests
 
         [Test]
+        public void TenthFrame_SpareAndBonusBall()
+        {
+            var tenthFrame = new TenthFrame(new NullFrame());
+            tenthFrame.RecordThrow(9);
+            tenthFrame.RecordThrow(1);
+            tenthFrame.RecordThrow(1);
+
+            Assert.That(tenthFrame.Score(), Is.EqualTo(11));
+        }
+
+        [Test]
+        public void TenthFrame_Turkey()
+        {
+            var tenthFrame = new TenthFrame(new NullFrame());
+
+            tenthFrame.RecordThrow(10);
+            tenthFrame.RecordThrow(10);
+            tenthFrame.RecordThrow(10);
+
+            Assert.That(tenthFrame.Score(), Is.EqualTo(30));
+        }
+
+        [Test]
+        public void TenthFrame_OpenFrame()
+        {
+            var tenthFrame = new TenthFrame(new NullFrame());
+
+            tenthFrame.RecordThrow(1);
+            tenthFrame.RecordThrow(1);
+
+            Assert.That(tenthFrame.Score(), Is.EqualTo(2));
+        }
+
+        [Test]
         public void Score_PerfectGame_Scores300()
         {
             var frames = GetFramesForFullGame();
@@ -205,12 +239,15 @@ namespace Kata.Bowling2.Tests
             var frame1 = new Frame();
             frames.Add(frame1);
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 8; i++)
             {
                 var previousFrame = frames.Last();
                 var frame = new Frame(previousFrame);
                 frames.Add(frame);
             }
+
+            var frame10 = new TenthFrame(frames.Last());
+            frames.Add(frame10);
 
             return frames;
 
