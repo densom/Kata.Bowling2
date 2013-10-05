@@ -46,12 +46,17 @@ namespace Kata.Bowling2
             {
                 PreviousFrame.AddBonusBall(pins);
 
-                if (PreviousFrame.PreviousFrame.IsStrike())
+                if (PreviousFrame.PreviousFrame.IsStrike() && IsFirstThrow())
                 {
                     PreviousFrame.PreviousFrame.AddBonusBall(pins);
                 }
             }
 
+        }
+
+        private bool IsFirstThrow()
+        {
+            return Throws.Count == 1;
         }
 
         internal override void AddBonusBall(int pins)

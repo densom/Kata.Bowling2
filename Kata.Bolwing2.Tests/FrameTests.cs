@@ -127,7 +127,41 @@ namespace Kata.Bowling2.Tests
             Assert.That(frame.Score(), Is.Null);
         }
 
+        [Test]
+        public void Score_Turkey_Equals30OnFirstFrame()
+        {
+            var frame1 = new Frame();
+            var frame2 = new Frame(frame1);
+            var frame3 = new Frame(frame2);
 
+            frame1.RecordThrow(10);
+            frame2.RecordThrow(10);
+            frame3.RecordThrow(10);
+
+            Assert.That(frame1.Score(), Is.EqualTo(30));
+        }
+
+        [Test]
+        public void Score_TurkeyFollowedByNormalFrame_AllFramesCalculateAccurately()
+        {
+            var frame1 = new Frame();
+            var frame2 = new Frame(frame1);
+            var frame3 = new Frame(frame2);
+            var frame4 = new Frame(frame3);
+
+            frame1.RecordThrow(10);
+            frame2.RecordThrow(10);
+            frame3.RecordThrow(10);
+            
+            frame4.RecordThrow(1);
+            frame4.RecordThrow(1);
+
+
+            Assert.That(frame1.Score(), Is.EqualTo(30));
+            Assert.That(frame2.Score(), Is.EqualTo(51));
+            Assert.That(frame3.Score(), Is.EqualTo(63));
+            Assert.That(frame4.Score(), Is.EqualTo(65));
+        }
 
 
     }

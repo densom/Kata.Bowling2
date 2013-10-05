@@ -48,11 +48,10 @@ namespace Kata.Bowling2.Tests
         }
 
         [Test]
-        [Ignore("Pending implementation on FrameBase object")]
         public void Score_TwoStrikesInARowFollowedByAnOpenFrame_GetsTwoBonusBalls()
         {
             _rollHelper.RollAll(new[] {10, 10, 1, 2});
-            Assert.That(_game.Score(), Is.EqualTo(10+10+1+2+10+1));
+            Assert.That(_game.Score(), Is.EqualTo(10+10+1+10+1+2+1+2));
         }
 
     }
