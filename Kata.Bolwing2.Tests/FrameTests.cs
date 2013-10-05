@@ -59,22 +59,35 @@ namespace Kata.Bowling2.Tests
         }
 
         [Test]
-        [Ignore]
         public void Score_TwoStrikesInARow_StrikeRecordsTwoBonusThrows()
         {
-            throw new NotImplementedException();
+            var frame1 = new Frame();
+            var frame2 = new Frame(frame1);
+            var frame3 = new Frame(frame2);
+
+            frame1.RecordThrow(10);
+            frame2.RecordThrow(10);
+            frame3.RecordThrow(1);
+            frame3.RecordThrow(1);
+
+            Assert.That(frame3.Score(), Is.EqualTo(35));
         }
 
-       /* [Test]
-        public void PendingBonusThrows_OpenFrame_EqualsZero()
+        [Test]
+        public void Score_SpareFollowedByOpenFrame_CalculatesAccurately()
         {
-            var frame1 = new FrameBase();
-            frame1.RecordThrow(10);
+            var frame1 = new Frame();
+            var frame2 = new Frame(frame1);
 
-            Assert.That(frame1.PendingBonusThrows, Is.EqualTo(2));
-        }*/
+            frame1.RecordThrow(9);
+            frame1.RecordThrow(1);
 
+            frame2.RecordThrow(1);
+            frame2.RecordThrow(1);
 
+            Assert.That(frame1.Score(), Is.EqualTo(11));
+        }
+        
         [Test]
         public void FrameNumber_IncrementsByOneOnNewFrame()
         {

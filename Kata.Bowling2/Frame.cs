@@ -37,7 +37,7 @@ namespace Kata.Bowling2
         {
             Throws.Add(pins);
 
-            if (PreviousFrame.IsSpare())
+            if (PreviousFrame.IsSpare() && IsFirstThrow())
             {
                 PreviousFrame.AddBonusBall(pins);
             }
